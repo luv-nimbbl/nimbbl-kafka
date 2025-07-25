@@ -18,8 +18,8 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("org.apache.kafka:kafka-clients:3.9.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("io.confluent:kafka-avro-serializer:7.9.0")
-    implementation("org.apache.avro:avro:1.11.4")
+    api("io.confluent:kafka-avro-serializer:7.9.0")
+    api("org.apache.avro:avro:1.11.4")
     implementation("ch.qos.logback:logback-classic:1.5.18")
 }
 
