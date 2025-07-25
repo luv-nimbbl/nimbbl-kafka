@@ -1,0 +1,20 @@
+{
+  "namespace": "com.nimbbl.avro.payload",
+  "type": "record",
+  "name": "NimbblKafkaPayloadHeader",
+  "fields": [
+    {
+      "name": "serviceName",
+      "type": "string"
+    },
+    {
+      "name": "serviceId",
+      "type": "string"
+    },
+    {
+      "name": "payloadVersion",
+      "type": "string",
+      "default": "1"
+    }
+  ]
+}

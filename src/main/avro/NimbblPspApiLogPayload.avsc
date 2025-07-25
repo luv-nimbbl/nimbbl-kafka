@@ -1,0 +1,18 @@
+{
+  "namespace": "com.nimbbl.avro.payload",
+  "type": "record",
+  "name": "NimbblPspApiLogPayload",
+  "fields": [
+    { "name": "latency", "type": "int" },
+    { "name": "paymentPartnerId", "type": "int" },
+    { "name": "statusCode", "type": "int" },
+    { "name": "endpoint", "type": "string" },
+    { "name": "httpHeaders", "type": ["null", "string"], "default": null },
+    { "name": "requestBody", "type": ["null", "string"], "default": null },
+    { "name": "responseBody", "type": ["null", "string"], "default": null },
+    { "name": "jobName", "type": ["null", "string"], "default": null },
+    { "name": "appCode", "type": "string" },
+    { "name": "subMerchantId", "type": ["null", "int"], "default": null },
+    { "name": "merchantId", "type": ["null", "int"], "default": null }
+  ]
+}
