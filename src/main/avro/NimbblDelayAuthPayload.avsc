@@ -1,0 +1,47 @@
+{
+  "namespace": "com.nimbbl.avro.payload",
+  "type": "record",
+  "name": "NimbblDelayAuthPayload",
+  "fields": [
+    {
+      "name": "subMerchantId",
+      "type": "string"
+    },
+    {
+      "name": "traceId",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "merchantId",
+      "type": "string"
+    },
+    {
+      "name": "orderId",
+      "type": "string"
+    },
+    {
+      "name": "invoiceId",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "transactionId",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "attempts",
+      "type": "int"
+    },
+    {
+      "name": "statusChangeFrom",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "reversingReason",
+      "type": "string"
+    }
+  ]
+}

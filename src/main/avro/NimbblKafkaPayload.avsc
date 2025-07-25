@@ -1,0 +1,24 @@
+{
+  "namespace": "com.nimbbl.avro.payload",
+  "type": "record",
+  "name": "NimbblKafkaPayload",
+  "fields": [
+    {
+      "name": "topic",
+      "type": "string"
+    },
+    {
+      "name": "key",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name" : "headers",
+      "type" : "NimbblKafkaPayloadHeader"
+    },
+    {
+      "name": "servicePayload",
+      "type" : ["NimbblPspApiLogPayload", "NimbblDelayAuthPayload"]
+    }
+  ]
+}
