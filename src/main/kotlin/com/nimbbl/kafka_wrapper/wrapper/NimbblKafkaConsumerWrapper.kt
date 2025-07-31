@@ -109,6 +109,8 @@ class NimbblKafkaConsumerWrapper private constructor(
         private var consumerGroupId = EnvVariables.CONSUMER_GROUP_ID
         private var schemaRegistryUrl = EnvVariables.SCHEMA_REGISTRY_URL
         private var retryCount = 3
+        // Produce to DLQ
+        private val dlqTopic = "dlq-wrapper"
 
         fun setRetryCount(retryCount: Int) = apply {
             this.retryCount = retryCount
@@ -135,7 +137,6 @@ class NimbblKafkaConsumerWrapper private constructor(
         }
 
 
-
         fun setPollDuration(millis: Long) = apply {
             this.pollDuration = Duration.ofMillis(millis)
         }
@@ -150,6 +151,17 @@ class NimbblKafkaConsumerWrapper private constructor(
 
         fun setNimbblKafkaConfigLevel(level: NimbblKafkaConfigLevel) = apply {
             this.configLevel = level
+        }
+
+        private fun buildProducerWrapper(): NimbblKafkaProducerWrapper {
+            return producerWrapper ?: NimbblKafkaProducerWrapper.Builder()
+                .setNimbblKafkaConfigLevel(NimbblKafkaConfigLevel.LOW)
+                .setTopic(dlqTopic)
+                .setKafkaBootstrapServers(kafkaBootstrapServers)
+                .setServiceId(serviceId)
+                .setServiceName(serviceName)    
+                .setSchemaRegistryUrl(schemaRegistryUrl)
+                .build()
         }
 
 
@@ -170,12 +182,7 @@ class NimbblKafkaConsumerWrapper private constructor(
             val consumer = KafkaConsumer<String, NimbblKafkaPayload>(configLevelProps)
             consumer.subscribe(topics)
 
-            // Produce to DLQ
-            val dlqTopic = "dlq-wrapper"
-            val producer = producerWrapper ?: NimbblKafkaProducerWrapper.Builder()
-                .setNimbblKafkaConfigLevel(NimbblKafkaConfigLevel.LOW)
-                .setTopics(listOf(dlqTopic))
-                .build()
+            val producer = producerWrapper ?: buildProducerWrapper()
 
             return NimbblKafkaConsumerWrapper(consumer,validatedConfigLevel, pollDuration, producer,retryCount)
         }
